@@ -24,7 +24,7 @@ RUN subscription-manager register --username <uname> --password <psswd> --auto-a
 	&& rm -f /tmp/jboss-eap-7.3.0.zip  \
 	&& $JBOSS_HOME/bin/add-user.sh $ADMIN_USER $ADMIN_PASSWORD --silent \
 	&& yum clean all && [ ! -d /var/cache/yum ] || rm -rf /var/cache/yum \
-	&& rm -rf /tmp/*
+	&& rm -rf /tmp/* \
 	&& subscription-manager unregister
  
 EXPOSE 8080 9990 
