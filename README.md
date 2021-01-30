@@ -1,3 +1,3 @@
 # redhat-containers
 
-Custom docker images built from Redhat UBI (Universal Base Image)
+Custom docker images built from based on Red Hat Universal Base Images (UBI) 
