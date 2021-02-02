@@ -33,3 +33,5 @@ WORKDIR /home/jboss
 EXPOSE 8080 9990
 
 USER ${JBOSS_USER}
+
+CMD ["/home/jboss/jboss-eap-7.3/bin/standalone.sh", "-b", "0.0.0.0","-bmanagement","0.0.0.0"]
