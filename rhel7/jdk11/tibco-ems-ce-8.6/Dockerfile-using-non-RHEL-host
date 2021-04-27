@@ -19,7 +19,7 @@ ADD TIB_ems-ce_8.6.0_linux_x86_64.zip /tmp/
 RUN subscription-manager register --username <uname> --password <psswd> --auto-attach \
 	&& yum install unzip -y \
 	&& yum --setopt=tsflags=nodocs install -y java-11-openjdk-devel \
-    && rpm -q java-11-openjdk-devel \
+	&& rpm -q java-11-openjdk-devel \
 	&& unzip /tmp/TIB_ems-ce_8.6.0_linux_x86_64.zip -d /tmp \
 	&& cd /tmp/TIB_ems-ce_8.6.0 \
 	&& yum install -y rpm/*.rpm \
