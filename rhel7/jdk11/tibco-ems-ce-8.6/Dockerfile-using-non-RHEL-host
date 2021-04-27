@@ -4,12 +4,15 @@ FROM registry.redhat.io/rhel7
 ### File Author / Maintainer 
 MAINTAINER "Aritra Chatterjee" "aritra.cnw@gmail.com" 
 
+RUN groupadd -r tibcouser -g 433 && \
+    useradd -u 431 -r -g tibcouser -m -d /home/tibco -s /bin/bash -c "Docker image user" tibco
+
 USER root
 
 ### Set Environment 			
 ENV JAVA_HOME="/usr/lib/jvm/java-11"
  
-### Install tibco 8.6.0
+### Install Tibco EMS Community Edition 8.6.0 
 ADD TIB_ems-ce_8.6.0_linux_x86_64.zip /tmp/
 
 ### Run subscription-manager if building from a non-RHEL machine. From a RHEL machine the build uses the subscription-manager of the machine.
@@ -21,12 +24,14 @@ RUN subscription-manager register --username <uname> --password <psswd> --auto-a
 	&& cd /tmp/TIB_ems-ce_8.6.0 \
 	&& yum install -y rpm/*.rpm \
 	&& mkdir /opt/tibco/datastore \
-	&& chmod -R 777 /opt/tibco \
+	&& chown tibco:tibcouser -R /opt/tibco \	
 	&& yum clean all && [ ! -d /var/cache/yum ] || rm -rf /var/cache/yum \
 	&& subscription-manager unregister
- 
+
 WORKDIR /opt/tibco
  
 EXPOSE 7222
+
+USER tibco
 
 CMD ["/opt/tibco/ems/8.6/bin/tibemsd","-config", "/opt/tibco/ems/8.6/samples/config/tibemsd.conf"]
